@@ -9,10 +9,11 @@ public class Loans {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private Integer id;
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private LoansTypePlans typePlan;
     private Double interest_rate;
 
 
@@ -27,17 +28,17 @@ public class Loans {
         this.id = id;
     }
 
-    public Loans(String type, Double interest_rate) {
-        this.type = type;
+    public Loans(LoansTypePlans typePlan, Double interest_rate) {
+        this.typePlan = typePlan;
         this.interest_rate = interest_rate;
     }
 
-    public String getType() {
-        return type;
+    public LoansTypePlans getTypePlan() {
+        return typePlan;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypePlan(LoansTypePlans typePlan) {
+        this.typePlan = typePlan;
     }
 
     public Double getInterest_rate() {

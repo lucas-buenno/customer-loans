@@ -3,6 +3,7 @@ package com.estudo.desafio_emprestimo.service;
 import com.estudo.desafio_emprestimo.controller.dto.CustomerDTO;
 import com.estudo.desafio_emprestimo.controller.dto.CustomerLoansDTO;
 import com.estudo.desafio_emprestimo.models.Loans;
+import com.estudo.desafio_emprestimo.models.LoansTypePlans;
 import com.estudo.desafio_emprestimo.repositories.LoanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,17 +30,17 @@ public class LoansService {
     public void checkLoansEligibility(CustomerDTO customerdto, List<Loans> loans ) {
 
         if (isEligibleForPersonal(customerdto)) {
-            Loans personal = loanRepository.findByType("PERSONAL".toUpperCase());
+            Loans personal = loanRepository.findByTypePlan(LoansTypePlans.PERSONAL);
             loans.add(personal);
         }
 
         if (isEligibleForConsignment(customerdto)) {
-            Loans consignment = loanRepository.findByType("CONSIGNMENT".toUpperCase());
+            Loans consignment = loanRepository.findByTypePlan(LoansTypePlans.CONSIGNMENT);
             loans.add(consignment);
         }
 
         if (isEligibleForGuaranteed(customerdto)) {
-            Loans guaranteed = loanRepository.findByType("GUARANTEED".toUpperCase());
+            Loans guaranteed = loanRepository.findByTypePlan(LoansTypePlans.GUARANTEED);
             loans.add(guaranteed);
         }
     }
