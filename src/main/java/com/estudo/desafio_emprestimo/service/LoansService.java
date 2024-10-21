@@ -17,13 +17,9 @@ public class LoansService {
 
     public CustomerLoansDTO LoansEligibility(CustomerDTO dto) {
 
-        if (dto.UF() == null && dto.income() == null && dto.age() == null) {
-            throw new IllegalArgumentException("Please check that all mandatory data has been filled in.");
+        if (dto.UF() == null || dto.income() == null || dto.age() == null) {
+            throw new IllegalArgumentException("The fields \"Age\", \"UF\" and \"Income\" are mandatory.");
         }
-        if (dto.age() == null || dto.income() == null || dto.UF() == null ) {
-            throw new IllegalArgumentException("Please check that all mandatory data has been filled in.");
-        }
-
         List<Loans> loans = new ArrayList<>();
         checkLoansEligibility(dto, loans);
         return customerLoansDTO(dto, loans);
@@ -33,17 +29,17 @@ public class LoansService {
     public void checkLoansEligibility(CustomerDTO customerdto, List<Loans> loans ) {
 
         if (isEligibleForPersonal(customerdto)) {
-            Loans personal = loanRepository.findById(1).get();
+            Loans personal = loanRepository.findByType("PERSONAL".toUpperCase());
             loans.add(personal);
         }
 
         if (isEligibleForConsignment(customerdto)) {
-            Loans consignment = loanRepository.findById(3).get();
+            Loans consignment = loanRepository.findByType("CONSIGNMENT".toUpperCase());
             loans.add(consignment);
         }
 
         if (isEligibleForGuaranteed(customerdto)) {
-            Loans guaranteed = loanRepository.findById(2).get();
+            Loans guaranteed = loanRepository.findByType("GUARANTEED".toUpperCase());
             loans.add(guaranteed);
         }
     }
