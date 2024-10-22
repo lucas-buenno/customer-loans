@@ -2,7 +2,8 @@ package com.estudo.desafio_emprestimo.controller;
 
 import com.estudo.desafio_emprestimo.controller.dto.CustomerDTO;
 import com.estudo.desafio_emprestimo.controller.dto.CustomerLoansDTO;
-import com.estudo.desafio_emprestimo.repositories.LoanRepository;
+import com.estudo.desafio_emprestimo.exception.InvalidDataLoanException;
+
 import com.estudo.desafio_emprestimo.service.LoansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +17,6 @@ public class LoansController {
 
     @Autowired
     LoansService loansService;
-
-    @Autowired
-    LoanRepository loan;
-
 
     @PostMapping("/customer-loans")
     public ResponseEntity<?> loansEligibility(@RequestBody CustomerDTO dto) {

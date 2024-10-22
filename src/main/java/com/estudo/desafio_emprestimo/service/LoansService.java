@@ -2,6 +2,7 @@ package com.estudo.desafio_emprestimo.service;
 
 import com.estudo.desafio_emprestimo.controller.dto.CustomerDTO;
 import com.estudo.desafio_emprestimo.controller.dto.CustomerLoansDTO;
+import com.estudo.desafio_emprestimo.exception.InvalidDataLoanException;
 import com.estudo.desafio_emprestimo.models.Loans;
 import com.estudo.desafio_emprestimo.models.enums.BrasilUFsEnum;
 import com.estudo.desafio_emprestimo.models.enums.LoansTypePlans;
@@ -20,7 +21,7 @@ public class LoansService {
     public CustomerLoansDTO LoansEligibility(CustomerDTO dto) {
 
         if (dto.UF() == null || dto.income() == null || dto.age() == null) {
-            throw new IllegalArgumentException("The fields \"Age\", \"UF\" and \"Income\" are mandatory.");
+            throw new InvalidDataLoanException("The fields \"Age\", \"UF\" and \"Income\" are mandatory.");
         }
         List<Loans> loans = new ArrayList<>();
         checkLoansEligibility(dto, loans);
@@ -50,7 +51,7 @@ public class LoansService {
         try {
             BrasilUFsEnum.valueOf(uf.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException ("Por favor, informe uma UF válida.");
+            throw new InvalidDataLoanException ("Por favor, informe uma UF válida.");
         }
     }
 
