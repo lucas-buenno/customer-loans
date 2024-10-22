@@ -1,5 +1,6 @@
 package com.estudo.desafio_emprestimo.models;
 
+import com.estudo.desafio_emprestimo.models.enums.LoansTypePlans;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 

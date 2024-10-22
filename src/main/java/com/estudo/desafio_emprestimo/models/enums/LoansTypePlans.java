@@ -1,4 +1,4 @@
-package com.estudo.desafio_emprestimo.models;
+package com.estudo.desafio_emprestimo.models.enums;
 
 public enum LoansTypePlans {
 

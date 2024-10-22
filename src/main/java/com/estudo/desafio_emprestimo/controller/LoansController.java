@@ -2,12 +2,9 @@ package com.estudo.desafio_emprestimo.controller;
 
 import com.estudo.desafio_emprestimo.controller.dto.CustomerDTO;
 import com.estudo.desafio_emprestimo.controller.dto.CustomerLoansDTO;
-import com.estudo.desafio_emprestimo.models.Loans;
-import com.estudo.desafio_emprestimo.models.LoansTypePlans;
 import com.estudo.desafio_emprestimo.repositories.LoanRepository;
 import com.estudo.desafio_emprestimo.service.LoansService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,5 +30,5 @@ public class LoansController {
         }
 
     }
-    
+
 }

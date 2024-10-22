@@ -3,7 +3,8 @@ package com.estudo.desafio_emprestimo.service;
 import com.estudo.desafio_emprestimo.controller.dto.CustomerDTO;
 import com.estudo.desafio_emprestimo.controller.dto.CustomerLoansDTO;
 import com.estudo.desafio_emprestimo.models.Loans;
-import com.estudo.desafio_emprestimo.models.LoansTypePlans;
+import com.estudo.desafio_emprestimo.models.enums.BrasilUFsEnum;
+import com.estudo.desafio_emprestimo.models.enums.LoansTypePlans;
 import com.estudo.desafio_emprestimo.repositories.LoanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,15 +46,27 @@ public class LoansService {
         }
     }
 
+    public void isUfExists(String uf) {
+        try {
+            BrasilUFsEnum.valueOf(uf.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException ("Por favor, informe uma UF válida.");
+        }
+    }
+
     public boolean isEligibleForPersonal(CustomerDTO customerDTO) {
+
+        isUfExists(customerDTO.UF());
+        BrasilUFsEnum uf = BrasilUFsEnum.valueOf(customerDTO.UF().toUpperCase());
+
         if (customerDTO.income() <= 3000.00) {
             return true;
         }
 
-        else if (customerDTO.income() >= 3000
+        if (customerDTO.income() >= 3000
                 && customerDTO.income() <= 5000
                 && customerDTO.age() < 30
-                && customerDTO.UF().equals("SP".toUpperCase())
+                && uf.equals(BrasilUFsEnum.SP)
                 ) {
             return true;
         }
@@ -62,16 +75,20 @@ public class LoansService {
     }
 
     public boolean isEligibleForConsignment(CustomerDTO customerDTO) {
+        isUfExists(customerDTO.UF());
         return customerDTO.income() >= 5000.00;
     }
 
     public boolean isEligibleForGuaranteed(CustomerDTO customerDTO) {
+        isUfExists(customerDTO.UF());
+        BrasilUFsEnum uf = BrasilUFsEnum.valueOf(customerDTO.UF().toUpperCase());
+
         if (customerDTO.income() <= 3000.00) {
             return true;
         } else if (customerDTO.income() >= 3000
                 && customerDTO.income() <= 5000
                 && customerDTO.age() < 30
-                && customerDTO.UF().equals("SP".toUpperCase())
+                && uf.equals(BrasilUFsEnum.SP)
         ) {
             return true;
         }
